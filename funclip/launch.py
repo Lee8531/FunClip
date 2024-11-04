@@ -193,8 +193,8 @@ if __name__ == "__main__":
                     with gr.Column():
                         # with gr.Row():
                             # video_sd_switch = gr.Radio(["No", "Yes"], label="👥区分说话人 Get Speakers", value='No')
-                        hotwords_input = gr.Textbox(label="🚒 热词 | Hotwords(可以为空，多个热词使用空格分隔，仅支持中文热词)")
-                        output_dir = gr.Textbox(label="📁 文件输出路径 | File Output Dir (可以为空，Linux, mac系统可以稳定使用)", value=" ")
+                        hotwords_input = gr.Textbox(label="🚒 知识点(可以为空，多个使用空格分隔)")
+                        output_dir = gr.Textbox(label="📁 文件输出路径 | File Output Dir", value=" ", visible=False)
                         with gr.Row():
                             recog_button = gr.Button("👂 识别 | ASR", variant="primary")
                             recog_button2 = gr.Button("👂👫 识别+区分说话人 | ASR+SD")
@@ -203,7 +203,7 @@ if __name__ == "__main__":
             with gr.Column():
                 with gr.Tab("🧠 LLM智能裁剪 | LLM Clipping"):
                     with gr.Column():
-                        prompt_head = gr.Textbox(label="Prompt System (按需更改，最好不要变动主体和要求)", value=("你是一个视频srt字幕分析剪辑器，输入视频的srt字幕，"
+                        prompt_head = gr.Textbox(label="Prompt System", value=("你是一个视频srt字幕分析剪辑器，输入视频的srt字幕，"
                                 "分析其中的精彩且尽可能连续的片段并裁剪出来，输出四条以内的片段，将片段中在时间上连续的多个句子及它们的时间戳合并为一条，"
                                 "注意确保文字与时间戳的正确匹配。输出需严格按照如下格式：1. [开始时间-结束时间] 文本，注意其中的连接符是“-”"))
                         prompt_head2 = gr.Textbox(label="Prompt User（不需要修改，会自动拼接左下角的srt字幕）",
@@ -228,23 +228,23 @@ if __name__ == "__main__":
                         llm_result = gr.Textbox(label="LLM Clipper Result")
                         with gr.Row():
                             llm_clip_button = gr.Button("🧠 LLM智能裁剪 | AI Clip", variant="primary")
-                            llm_clip_subti_button = gr.Button("🧠 LLM智能裁剪+字幕 | AI Clip+Subtitles")
+                            llm_clip_subti_button = gr.Button("🧠 LLM智能裁剪+字幕 | AI Clip+Subtitles", visible=False)
                 with gr.Tab("✂️ 根据文本/说话人裁剪 | Text/Speaker Clipping"):
                     video_text_input = gr.Textbox(label="✏️ 待裁剪文本 | Text to Clip (多段文本使用'#'连接)")
                     video_spk_input = gr.Textbox(label="✏️ 待裁剪说话人 | Speaker to Clip (多个说话人使用'#'连接)")
                     with gr.Row():
                         clip_button = gr.Button("✂️ 裁剪 | Clip", variant="primary")
-                        clip_subti_button = gr.Button("✂️ 裁剪+字幕 | Clip+Subtitles")
+                        clip_subti_button = gr.Button("✂️ 裁剪+字幕 | Clip+Subtitles", visible=False)
                     with gr.Row():
                         video_start_ost = gr.Slider(minimum=-500, maximum=1000, value=0, step=50, label="⏪ 开始位置偏移 | Start Offset (ms)")
                         video_end_ost = gr.Slider(minimum=-500, maximum=1000, value=100, step=50, label="⏩ 结束位置偏移 | End Offset (ms)")
                 with gr.Row():
-                    font_size = gr.Slider(minimum=10, maximum=100, value=32, step=2, label="🔠 字幕字体大小 | Subtitle Font Size")
-                    font_color = gr.Radio(["black", "white", "green", "red"], label="🌈 字幕颜色 | Subtitle Color", value='white')
+                    font_size = gr.Slider(minimum=10, maximum=100, value=32, step=2, label="🔠 字幕字体大小 | Subtitle Font Size", visible=False)
+                    font_color = gr.Radio(["black", "white", "green", "red"], label="🌈 字幕颜色 | Subtitle Color", value='white', visible=False)
                     # font = gr.Radio(["黑体", "Alibaba Sans"], label="字体 Font")
                 video_output = gr.Video(label="裁剪结果 | Video Clipped")
                 audio_output = gr.Audio(label="裁剪结果 | Audio Clipped", visible=False)
-                clip_message = gr.Textbox(label="⚠️ 裁剪信息 | Clipping Log")
+                clip_message = gr.Textbox(label="⚠️ 裁剪信息 | Clipping Log", visible=False)
                 srt_clipped = gr.Textbox(label="📖 裁剪部分SRT字幕内容 | Clipped RST Subtitles")            
                 
         recog_button.click(mix_recog, 
