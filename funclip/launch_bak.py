@@ -177,7 +177,7 @@ if __name__ == "__main__":
             with gr.Column():
                 with gr.Row():
                     video_input = gr.Video(label="视频输入 | Video Input")
-                    audio_input = gr.Audio(label="音频输入 | Audio Input", visible=False)
+                    audio_input = gr.Audio(label="音频输入 | Audio Input")
                 with gr.Column():
                     gr.Examples(['https://isv-data.oss-cn-hangzhou.aliyuncs.com/ics/MaaS/ClipVideo/%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E5%A4%9A%E8%AF%BB%E4%B9%A6%EF%BC%9F%E8%BF%99%E6%98%AF%E6%88%91%E5%90%AC%E8%BF%87%E6%9C%80%E5%A5%BD%E7%9A%84%E7%AD%94%E6%A1%88-%E7%89%87%E6%AE%B5.mp4', 
                                  'https://isv-data.oss-cn-hangzhou.aliyuncs.com/ics/MaaS/ClipVideo/2022%E4%BA%91%E6%A0%96%E5%A4%A7%E4%BC%9A_%E7%89%87%E6%AE%B52.mp4', 
@@ -189,7 +189,7 @@ if __name__ == "__main__":
                                 label='多说话人示例视频 | Multi-speaker Demo Video')
                     gr.Examples(['https://isv-data.oss-cn-hangzhou.aliyuncs.com/ics/MaaS/ClipVideo/%E9%B2%81%E8%82%83%E9%87%87%E8%AE%BF%E7%89%87%E6%AE%B51.wav'],
                                 [audio_input],
-                                label="示例音频 | Demo Audio", visible=False)
+                                label="示例音频 | Demo Audio")
                     with gr.Column():
                         # with gr.Row():
                             # video_sd_switch = gr.Radio(["No", "Yes"], label="👥区分说话人 Get Speakers", value='No')
@@ -206,9 +206,7 @@ if __name__ == "__main__":
                         prompt_head = gr.Textbox(label="Prompt System (按需更改，最好不要变动主体和要求)", value=("你是一个视频srt字幕分析剪辑器，输入视频的srt字幕，"
                                 "分析其中的精彩且尽可能连续的片段并裁剪出来，输出四条以内的片段，将片段中在时间上连续的多个句子及它们的时间戳合并为一条，"
                                 "注意确保文字与时间戳的正确匹配。输出需严格按照如下格式：1. [开始时间-结束时间] 文本，注意其中的连接符是“-”"))
-                        prompt_head2 = gr.Textbox(label="Prompt User（不需要修改，会自动拼接左下角的srt字幕）",
-                                                  visible=False,
-                                                  value=("这是待裁剪的视频srt字幕："))
+                        prompt_head2 = gr.Textbox(label="Prompt User（不需要修改，会自动拼接左下角的srt字幕）", value=("这是待裁剪的视频srt字幕："))
                         with gr.Column():
                             with gr.Row():
                                 llm_model = gr.Dropdown(
@@ -219,12 +217,9 @@ if __name__ == "__main__":
                                              "g4f-gpt-3.5-turbo"], 
                                     value="qwen-plus",
                                     label="LLM Model Name",
-                                    visible= False,
                                     allow_custom_value=True)
-                                apikey_input = gr.Textbox(label="APIKEY",
-                                                          value="sk-b2b02d17d5d34acdaf8b79514998fc2b",
-                                                          visible=False)
-                            llm_button =  gr.Button("LLM推理 | LLM Inference", variant="primary")
+                                apikey_input = gr.Textbox(label="APIKEY")
+                            llm_button =  gr.Button("LLM推理 | LLM Inference（首先进行识别，非g4f需配置对应apikey）", variant="primary")
                         llm_result = gr.Textbox(label="LLM Clipper Result")
                         with gr.Row():
                             llm_clip_button = gr.Button("🧠 LLM智能裁剪 | AI Clip", variant="primary")
@@ -243,7 +238,7 @@ if __name__ == "__main__":
                     font_color = gr.Radio(["black", "white", "green", "red"], label="🌈 字幕颜色 | Subtitle Color", value='white')
                     # font = gr.Radio(["黑体", "Alibaba Sans"], label="字体 Font")
                 video_output = gr.Video(label="裁剪结果 | Video Clipped")
-                audio_output = gr.Audio(label="裁剪结果 | Audio Clipped", visible=False)
+                audio_output = gr.Audio(label="裁剪结果 | Audio Clipped")
                 clip_message = gr.Textbox(label="⚠️ 裁剪信息 | Clipping Log")
                 srt_clipped = gr.Textbox(label="📖 裁剪部分SRT字幕内容 | Clipped RST Subtitles")            
                 
