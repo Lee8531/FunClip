@@ -222,7 +222,7 @@ if __name__ == "__main__":
                                     visible= False,
                                     allow_custom_value=True)
                                 apikey_input = gr.Textbox(label="APIKEY",
-                                                          value="sk-b2b02d17d5d34acdaf8b79514998fc2b",
+                                                          value="",
                                                           visible=False)
                             llm_button =  gr.Button("LLM推理 | LLM Inference", variant="primary")
                         llm_result = gr.Textbox(label="LLM Clipper Result")
